@@ -1,6 +1,8 @@
 # Prerequisites
 *.d
 
+/algoritmo-genetico/base/resource
+
 # Compiled Object files
 *.slo
 *.lo
