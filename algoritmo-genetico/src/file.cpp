@@ -5,8 +5,9 @@
  * entao eh criado novamente as pasta base/resource e subpastas
  */
 void File::removeThanCreate() {
-    std::uintmax_t n = fs::remove_all(_resource);
-    cout << "Removendo " << n << " arquivos e/ou diretorios" << endl;
+    std::uintmax_t n_resource = fs::remove_all(_resource);
+    std::uintmax_t n_logs = fs::remove_all(_log);
+    cout << "Removendo " << n_resource + n_logs << " arquivos e/ou diretorios" << endl;
 
     std::filesystem::create_directories(_resource);
     std::filesystem::create_directories(_resource + "/matriz");
@@ -33,6 +34,7 @@ void File::readThanCreate(Populacao &p) {
             util.tokenizar(line, _fileName, _vecInput);
             createMatriz(p);
         }
+        createLog(p.orderPopulacao());
         myfile.close();
     } else cout << "Nao foi possivel abrir o arquivo" << endl;
 }
@@ -65,45 +67,43 @@ void File::createFile(Populacao &p) {
     this->readThanCreate(p);
 }
 
+void File::createLog(type_order ordered) {
+    ofstream myfile(_log);
+    string line;
+
+    if (myfile.is_open()) {
+        myfile << "Geracao: " << _geracao << endl;
+        for (const auto &[key, value] : ordered) {
+            myfile << key << " " << value << endl;
+        }
+        myfile << endl;
+        myfile.close();
+    } else cout << "Nao foi possivel abrir o arquivo" << endl;
+
+}
+
 /**
- * @brief realiza a leitura do arquivo input.data para gerar uma matriz e armazenar em arquivos
+ * @brief gera uma matriz com as localizacoes das 8 rainhas
  *
- * o arquivo gerado contera o nome das posicoes das rainhas na matriz
  */
 void File::createMatriz(Populacao &p) {
-    // string path = _resource;
-    // path.append("/matriz/").append(_fileName).append(".data");
-    // ofstream myfile(path);
-
-    // string line;
     int col = 0;
-
     int matriz[N][N] = { 0 };
 
     while (!_vecInput.empty()) {
         int line = _vecInput.front();
         _vecInput.pop();
         matriz[N - line][col++] = 1;
-
         p.setInput(line);
     }
     p.setVariante(_fileName, matriz);
+}
 
-    // if (myfile.is_open()) {
-    //     while (!_vecInput.empty()) {
-    //         int line = _vecInput.front();
-    //         _vecInput.pop();
-    //         matriz[N - line][col++] = 1;
-
-    //         p.setInput(line);
-    //     }
-    //     p.setVariante(_fileName, matriz);
-
-    //     for (int i = 0; i < N; i++) {
-    //         for (int j = 0; j < N; j++)
-    //             myfile << matriz[i][j] << " ";
-    //         myfile << endl;
-    //     }
-    //     myfile.close();
-    // } else cout << "Nao foi possivel abrir o arquivo" << endl;
+void File::printMatriz(int(&matriz)[N][N]) {
+    cout << endl << _fileName << endl;
+    for (int i = 0; i < N; i++) {
+        for (int j = 0; j < N; j++)
+            cout << matriz[i][j] << " ";
+        cout << endl;
+    }
 }

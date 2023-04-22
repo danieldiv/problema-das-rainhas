@@ -2,9 +2,8 @@
 
 void Populacao::setVariante(string key, int(&matriz)[N][N]) {
     int ataques = this->contAtaques(matriz);
-    int maximoAtaque = (N * (N + 1)) / 2;
-    // (N*(N+1))/2
-    _populacao.insert({ key,make_pair(ataques, maximoAtaque) });
+    int porcentagem = ((_maximoAtaque - ataques) * 100) / _maximoAtaque;
+    _populacao.insert({ key, porcentagem });
 }
 
 void Populacao::setInput(int val) { _input.push(val); }
@@ -42,9 +41,22 @@ int Populacao::contAtaques(int(&matriz)[N][N]) {
     return ataque;
 }
 
-void Populacao::showPopulacao() {
-    cout << endl;
-    for (auto it = _populacao.begin(); it != _populacao.end(); ++it) {
-        // cout << it->first << " " << it->second << endl;
+/**
+ * @brief exibe a populacao ordenada pela melhor distribuicao das rainhas
+ *
+ */
+type_order Populacao::orderPopulacao() {
+    vector<std::pair<string, int>> arr;
+    for (const auto &item : _populacao) {
+        arr.emplace_back(item);
     }
+
+    std::sort(arr.begin(), arr.end(),
+        [](const auto &x, const auto &y) {return x.second > y.second; });
+
+    return arr;
+    // cout << endl;
+    // for (const auto &[key, value] : arr) {
+    //     cout << key << " " << value << endl;
+    // }
 }
