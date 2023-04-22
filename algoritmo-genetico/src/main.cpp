@@ -2,8 +2,10 @@
 
 int main() {
     File f;
+    Populacao p;
 
-    f.createFile();
+    f.createFile(p);
+    // p.showPopulacao();
 
     return 0;
 }

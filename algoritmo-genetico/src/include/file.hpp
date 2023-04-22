@@ -10,8 +10,7 @@
 #include <time.h>
 
 #include "util.hpp"
-
-#define N 8
+#include "populacao.hpp"
 
 #define MAX 10
 
@@ -27,12 +26,14 @@ private:
     string _fileName;
     queue<int> _vecInput;
 
-    void readThanCreate();
-    void createMatriz();
+    void readThanCreate(Populacao &p);
+    void createMatriz(Populacao &p);
     void removeThanCreate();
 public:
     File(): _input("base/input.data"), _resource("base/resource") { }
-    void createFile();
+
+    void createFile(Populacao &p);
+    // void readMatriz(string path, int **mat);
 };
 
 #endif
