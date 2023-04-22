@@ -55,8 +55,4 @@ type_order Populacao::orderPopulacao() {
         [](const auto &x, const auto &y) {return x.second > y.second; });
 
     return arr;
-    // cout << endl;
-    // for (const auto &[key, value] : arr) {
-    //     cout << key << " " << value << endl;
-    // }
 }

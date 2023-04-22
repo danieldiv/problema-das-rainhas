@@ -67,12 +67,17 @@ void File::createFile(Populacao &p) {
     this->readThanCreate(p);
 }
 
+/**
+ * @brief Cria um arquivo adicionando a geracao atual
+ *
+ * @param ordered
+ */
 void File::createLog(type_order ordered) {
-    ofstream myfile(_log);
+    ofstream myfile(_log, std::ios::app);
     string line;
 
     if (myfile.is_open()) {
-        myfile << "Geracao: " << _geracao << endl;
+        myfile << "Geracao: " << _geracao++ << endl;
         for (const auto &[key, value] : ordered) {
             myfile << key << " " << value << endl;
         }
