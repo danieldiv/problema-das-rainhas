@@ -42,7 +42,7 @@ void File::readThanCreate(Populacao &p) {
 /**
  * @brief cria uma populacao de tamanho MAX
  *
- * O tamanho da populacao eh a quantidade de variacoes do conjunto de 8 rainhas (individuos)
+ * O tamanho da populacao eh a quantidade de genes com 8 individuos cada
  *
  * Exemplo: 1 4 4 2 1 5 1 5
  */
