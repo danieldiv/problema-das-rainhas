@@ -14,7 +14,7 @@
 #include <thread>
 
 #define N 8
-#define MAX 1000
+#define MAX 500
 
 using namespace std;
 
