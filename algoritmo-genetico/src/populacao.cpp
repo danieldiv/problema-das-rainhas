@@ -41,18 +41,71 @@ int Populacao::contAtaques(int(&matriz)[N][N]) {
     return ataque;
 }
 
+void Populacao::cleanPopulacao() { _populacao.clear(); }
+
+auto Populacao::getPopulacao() { return _populacao; }
+
+void  Populacao::setPopulacao(Populacao &populacao2) {
+    cleanPopulacao();
+    _populacao.insert(populacao2.getPopulacao().begin(), populacao2.getPopulacao().end());
+}
+
 /**
  * @brief exibe a populacao ordenada pela melhor distribuicao das rainhas
  *
  */
 type_order Populacao::orderPopulacao() {
+    cout << endl;
+
     vector<std::pair<string, int>> arr;
-    for (const auto &item : _populacao) {
+    for (const auto &item : _populacao)
         arr.emplace_back(item);
-    }
 
     std::sort(arr.begin(), arr.end(),
         [](const auto &x, const auto &y) {return x.second > y.second; });
+
+
+    float cont = 0;
+    for (const auto &[key, value] : _populacao) {
+        cout << key << " " << value << endl;
+        cont += value;
+    }
+    cout << "som: " << cont << endl << endl;
+
+    map<int, pair<string, pair<float, float>>> intervalo;
+    int individuo = 1;
+
+    std::fixed(std::cout);
+    for (const auto &[key, value] : _populacao) {
+        cout << key << " " << setprecision(3) << value / cont << endl;
+    }
+
+    float controle = 0;
+    float aux;
+    cout << endl;
+
+    for (const auto &[key, value] : _populacao) {
+        aux = controle;
+        controle += (value / cont);
+
+        intervalo.insert({ individuo++, make_pair(key,make_pair(aux,controle)) });
+        // cout << key << " [ " << setprecision(3) << aux << " - " << setprecision(3) << controle << " ]" << endl;
+    }
+
+    cout << endl;
+    for (const auto &[key, value] : intervalo) {
+        auto intervalo = value.second;
+        cout << key << " - " << value.first << " [ " << setprecision(3) << intervalo.first << " - " << setprecision(3) << intervalo.second << " ]" << endl;
+    }
+
+    std::random_device rd;
+    std::mt19937 gen(rd());
+    std::uniform_real_distribution<> dist(0, 1);
+
+    cout << endl;
+    for (int i = 0; i < N; i++) {
+        std::cout << dist(gen) << std::endl;
+    }
 
     return arr;
 }

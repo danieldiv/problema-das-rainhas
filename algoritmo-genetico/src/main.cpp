@@ -6,7 +6,7 @@ int main() {
     Genetica g;
 
     f.createFile(g.getPopulacao());
-    // p.showPopulacao();
+    g.genetic_algorithm();
 
     return 0;
 }

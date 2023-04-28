@@ -7,8 +7,6 @@
 #include <fstream>
 #include <queue>
 
-#include <time.h>
-
 #include "util.hpp"
 #include "populacao.hpp"
 

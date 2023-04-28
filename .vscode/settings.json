@@ -52,6 +52,7 @@
         "codecvt": "cpp",
         "ctime": "cpp",
         "iomanip": "cpp",
-        "set": "cpp"
+        "set": "cpp",
+        "map": "cpp"
     }
 }

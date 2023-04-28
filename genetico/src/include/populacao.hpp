@@ -12,6 +12,7 @@
 #include <map>
 
 #define N 8
+#define MAX 1000
 
 using namespace std;
 
@@ -19,23 +20,24 @@ using type_populacao = unordered_map<string, int>;
 using type_order = vector<std::pair<string, int>>;
 
 class Populacao {
-private:
-    queue<int> _input;
-    int _maximoAtaque;
-
-    void cleanPopulacao();
-public:
+protected: // pode ser usado pela classe que herda
     type_populacao _populacao;
-    Populacao(): _maximoAtaque(((N - 1) *N) / 2) { }
+    type_populacao _populacao2;
+    pair<string, int> _max;
+private: // so a classe populacao tem acesso
+    int _maximoAtaque;
+    queue<int> _input;
+public:
+    Populacao(): _maximoAtaque(((N - 1) *N) / 2) { initPopulacao(); }
 
-    int contAtaques(int(&matriz)[N][N]);
-
+    void initPopulacao();
     void setInput(int val);
     void setVariante(string key, int(&matriz)[N][N]);
-    void setPopulacao(Populacao &populacao2);
+    void setVariante2(string key);
 
-    auto getPopulacao();
+    int contAtaques(int(&matriz)[N][N]);
     type_order orderPopulacao();
+    void printPopulacao();
 };
 
 #endif

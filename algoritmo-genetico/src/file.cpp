@@ -34,7 +34,7 @@ void File::readThanCreate(Populacao &p) {
             util.tokenizar(line, _fileName, _vecInput);
             createMatriz(p);
         }
-        createLog(p.orderPopulacao());
+        // createLog(p.orderPopulacao());
         myfile.close();
     } else cout << "Nao foi possivel abrir o arquivo" << endl;
 }
@@ -52,15 +52,19 @@ void File::createFile(Populacao &p) {
     ofstream myfile(_input);
     string line;
 
+    type_populacao popupulacoAux;
+
     if (myfile.is_open()) {
         cout << "Criando populacao aleatoria de tamanho " << MAX << " com " << N << " individuos" << endl;
         srand(time(nullptr));
 
-        for (int i = 0; i < MAX; i++) {
+        while (popupulacoAux.size() < MAX) {
+            string str("");
             for (int j = 0; j < N; j++)
-                myfile << (1 + rand() % N) << " ";
-            myfile << endl;
+                str.append(to_string((1 + rand() % N))).append(" ");
+            popupulacoAux.insert({ str,0 });
         }
+        for (const auto &[key, value] : popupulacoAux) myfile << key << endl;
         myfile.close();
     } else cout << "Nao foi possivel abrir o arquivo" << endl;
 
