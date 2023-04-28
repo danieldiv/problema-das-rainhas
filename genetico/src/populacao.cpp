@@ -1,7 +1,6 @@
 #include "include/populacao.hpp"
 
 void Populacao::initPopulacao() {
-    // cout << "Criando populacao aleatoria de tamanho " << MAX << " com " << N << " individuos" << endl;
     srand(time(nullptr));
 
     int cont = 0;
@@ -60,16 +59,19 @@ int Populacao::contAtaques(int(&matriz)[N][N]) {
         int linha = _input.front();
         linha = N - linha;
 
+        // direita
         for (col = ++col_direita; col < N; col++) {
             if (matriz[linha][col] == 1) ataque++;
         }
 
+        // diagonal superior direita
         col = col_sup_direita++;
         linha_copia = linha;
         while (--linha_copia >= 0 && ++col < N) {
             if (matriz[linha_copia][col] == 1) ataque++;
         }
 
+        // diagonal inferior direita
         col = col_inf_direita++;
         linha_copia = linha;
         while (++linha_copia < N && ++col < N) {
@@ -91,7 +93,7 @@ type_order Populacao::orderPopulacao() {
     return arr;
 }
 
-void Populacao::printPopulacao() {
+void Populacao::obterMaior() {
     for (const auto &[key, value] : orderPopulacao()) {
         if (value > _max.second) {
             _max.first = key;

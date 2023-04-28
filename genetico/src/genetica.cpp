@@ -39,7 +39,7 @@ void Genetica::genetic_algorithm() {
     _populacao.clear();
     _populacao.insert(_populacao2.begin(), _populacao2.end());
 
-    printPopulacao();
+    obterMaior();
 }
 
 int  Genetica::weighted_random_choices() {

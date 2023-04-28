@@ -11,6 +11,8 @@
 #include <queue>
 #include <map>
 
+#include <thread>
+
 #define N 8
 #define MAX 1000
 
@@ -36,8 +38,8 @@ public:
     void setVariante2(string key);
 
     int contAtaques(int(&matriz)[N][N]);
+    void obterMaior();
     type_order orderPopulacao();
-    void printPopulacao();
 };
 
 #endif
