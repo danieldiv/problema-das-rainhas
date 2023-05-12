@@ -16,28 +16,35 @@ void Genetica::normalizarDados() {
 
         _intervalo.insert({ individuo++, make_pair(key,make_pair(aux,controle)) });
     }
+    // for (const auto &[key, value] : _intervalo) {
+    //     cout << key << " : " << value.first << " : " << value.second.first << " : " << value.second.second << endl;
+    // }
+    // cout << endl;
 }
 
 void Genetica::genetic_algorithm() {
     normalizarDados();
     _populacao2.clear();
 
-    int parent1;
-    int parent2;
+    int parent1, parent2;
 
     for (int i = 0; i < MAX / 2; i++) {
         parent1 = weighted_random_choices();
         parent2 = weighted_random_choices();
 
-        while (parent2 == parent1) parent2 = weighted_random_choices();
+        while (parent2 == parent1)
+            parent2 = weighted_random_choices();
 
-        auto childs = reproduce(_intervalo[parent1].first, _intervalo[parent2].first);
+        auto childs = reproduce(
+            _intervalo[parent1].first,
+            _intervalo[parent2].first);
 
         setVariante2(childs.first);
         setVariante2(childs.second);
     }
     _populacao.clear();
-    _populacao.insert(_populacao2.begin(), _populacao2.end());
+    _populacao.insert(
+        _populacao2.begin(), _populacao2.end());
 
     obterMaior();
 }
@@ -61,7 +68,8 @@ int  Genetica::weighted_random_choices() {
     return 1;
 }
 
-pair<string, string> Genetica::reproduce(string &parent1, string &parent2) {
+pair<string, string> Genetica::reproduce(
+    string &parent1, string &parent2) {
     size_t n = parent1.size();
     size_t c = (rand() % n);
 

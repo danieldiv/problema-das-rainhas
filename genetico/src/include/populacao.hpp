@@ -30,7 +30,10 @@ private: // so a classe populacao tem acesso
     int _maximoAtaque;
     queue<int> _input;
 public:
-    Populacao() : _maximoAtaque(((N - 1) *N) / 2) { initPopulacao(); }
+    Populacao() :
+        _maximoAtaque(((N - 1) *N) / 2) {
+        initPopulacao();
+    }
 
     void initPopulacao();
     void setInput(int val);

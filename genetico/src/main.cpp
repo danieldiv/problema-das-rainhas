@@ -15,8 +15,6 @@ void variacoes() {
 
     t1 = steady_clock::now();
 
-    cout << "Gerando novas populacoes ..." << endl;
-
     for (int i = 0; i < MAX; i++) {
         quant++;
         g.genetic_algorithm();
@@ -25,28 +23,14 @@ void variacoes() {
     cout << quant << " geracoes " << " [ ";
     cout << g.getMax().first << " : " << g.getMax().second << " ] ";
 
-    int matriz[N][N] = { 0 };
-    int col = 0;
-
-    // cout << endl;
-    // for (const auto &num : g.getMax().first)
-    //     matriz[N - (num - '0')][col++] = 1;
-
-    // for (int i = 0; i < N; i++) {
-    //     for (int j = 0; j < N; j++)
-    //         cout << matriz[i][j] << " ";
-    //     cout << endl;
-    // }
-
     t2 = steady_clock::now();
     double tempo = duration_cast<duration<double>>(t2 - t1).count();
 
-    cout << "\ntempo total: " << tempo << " s" << endl;
+    cout << tempo << " s" << endl;
 }
 
 int main() {
-    // variacoes();
-    int m = 10;
+    int m = 20;
     vector<std::thread> threads;
 
     for (int i = 0; i < m; i++)

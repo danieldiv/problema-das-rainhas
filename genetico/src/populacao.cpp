@@ -2,10 +2,7 @@
 
 void Populacao::initPopulacao() {
     srand(time(nullptr));
-
-    int cont = 0;
-    int col = 0;
-    int val;
+    int cont = 0, col = 0, val;
 
     while (cont++ < MAX) {
         string gene("");
@@ -25,7 +22,9 @@ void Populacao::initPopulacao() {
 
 void Populacao::setVariante(string key, int(&matriz)[N][N]) {
     int ataques = this->contAtaques(matriz);
-    int porcentagem = ((_maximoAtaque - ataques) * 100) / _maximoAtaque;
+    int porcentagem =
+        ((_maximoAtaque - ataques) * 100) / _maximoAtaque;
+
     _populacao.insert({ key, porcentagem });
 }
 
@@ -39,6 +38,7 @@ void Populacao::setVariante2(string key) {
         _input.push(val);
         matriz[N - val][col++] = 1;
     }
+
     int ataques = this->contAtaques(matriz);
     int porcentagem = ((_maximoAtaque - ataques) * 100) / _maximoAtaque;
     _populacao2.insert({ key, porcentagem });
